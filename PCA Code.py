@@ -34,9 +34,11 @@ df_complete = pd.concat([df_complete, pca_df], axis=1)
 per_var_eigen = np.round(pca.explained_variance_, decimals=2)
 per_var_eigen_df = pd.DataFrame(per_var_eigen, columns=['Eigenvalues'], index=labels)
 
+#Variance explained for each PC
 per_var = np.round(pca.explained_variance_ratio_*100, decimals=2) 
 per_var_df = pd.DataFrame(per_var, columns=['Explained Variance (%)'], index=labels)
 
+#Variance cumulation
 var_sum = np.cumsum(pca.explained_variance_ratio_*100).round(decimals=2) 
 var_sum_df = pd.DataFrame(var_sum, columns=['Accumulated Variance'], index=labels)
 
