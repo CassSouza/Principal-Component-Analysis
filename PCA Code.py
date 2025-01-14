@@ -23,7 +23,7 @@ num_pc = pca.n_features_in_ #Number of PC's
 
 labels = ['PC' + str(x) for x in range(1, num_pc+1)] #Create labels for te scree plot. 
 
-pca_data = pca.transform(df.iloc[:, start_index:end_index+1]) #Coodinates of PC's
+pca_data = pca.transform(df.iloc[:, start_index:end_index+1]) #PC's coordinates
 pca_df = pd.DataFrame(pca_data, columns=labels)
 
 #Creating an dataframe with labels and PC's
@@ -40,7 +40,7 @@ per_var_df = pd.DataFrame(per_var, columns=['Explained Variance (%)'], index=lab
 var_sum = np.cumsum(pca.explained_variance_ratio_*100).round(decimals=2) 
 var_sum_df = pd.DataFrame(var_sum, columns=['Accumulated Variance'], index=labels)
 
-loadings = pca.components_
+loadings = pca.components_ 
 
 df_loadings = pd.DataFrame() 
 for i in range(num_pc):
