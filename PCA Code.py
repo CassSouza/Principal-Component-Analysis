@@ -29,19 +29,25 @@ pca_df = pd.DataFrame(pca_data, columns=labels)
 #Creating an dataframe with labels and PC's
 df_complete = df[['CLASS']]
 df_complete = pd.concat([df_complete, pca_df], axis=1)
+df_complete.to_csv(f"{git_repo.working_tree_dir}\\Outputs\\PCA_Result.csv")
 
 #Igenvalues
 per_var_eigen = np.round(pca.explained_variance_, decimals=2)
 per_var_eigen_df = pd.DataFrame(per_var_eigen, columns=['Eigenvalues'], index=labels)
+per_var_eigen_df.to_csv(f"{git_repo.working_tree_dir}\\Outputs\\PC_eigenvalues.csv")
 
 #Variance explained for each PC
 per_var = np.round(pca.explained_variance_ratio_*100, decimals=2) 
 per_var_df = pd.DataFrame(per_var, columns=['Explained Variance (%)'], index=labels)
+per_var_df.to_csv(f"{git_repo.working_tree_dir}\\Outputs\\PC_variance_percent.csv")
 
 #Variance cumulation
 var_sum = np.cumsum(pca.explained_variance_ratio_*100).round(decimals=2) 
 var_sum_df = pd.DataFrame(var_sum, columns=['Accumulated Variance'], index=labels)
+var_sum_df.to_csv(f"{git_repo.working_tree_dir}\\Outputs\\PC_variance_accumulation.csv")
 
+#Loadings
+# #How much each element contribbuted to each PC
 loadings = pca.components_ 
 
 df_loadings = pd.DataFrame() 
@@ -49,3 +55,4 @@ for i in range(num_pc):
     loading_iterate = pd.Series(loadings[i], index=ELEMENTS, name=f'PC{i+1}') 
     df_loadings_provedor = pd.DataFrame(data=loading_iterate) 
     df_loadings = pd.concat([df_loadings, df_loadings_provedor], axis=1) 
+df_loadings.to_csv(f"{git_repo.working_tree_dir}\\Outputs\\PCA_Result_Loadings.csv")
